@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+//배열 30개 10억을 이진수로 표현하면 30칸 필요함.->배열의 최댓값
+int from_char_to_int(char); //문자를 넣으면 대응되는 숫자가 나옴
+int to_decimal(char*,int);  //decimal 구하는 함수
+int main()
+{
+    
+    char N[31];
+    int B;
+    scanf("%s %d",N,&B);
+    
+    int decimal=to_decimal(N,B);
+    
+    printf("%d\n",decimal);
+    return 0;
+}
+int from_char_to_int(char n){
+    if (n>='A' && n<= 'Z'){
+        return 10+n-'A';
+    }
+    else if (n>='0' && n<='9'){
+        return n-'0';
+    }
+}
+int to_decimal(char* N,int B){
+    int num[31]={0};
+    int last_index=strlen(N)-1;
+    
+    for(int i=0;i<strlen(N); i++){
+        num[last_index-i]=from_char_to_int(N[last_index-i])*(int)pow(B,i);
+    }
+    int sum=0;
+    for(int j=0;j<strlen(N);j++){
+        sum+=num[j];
+    }
+    return sum;
+}
+
